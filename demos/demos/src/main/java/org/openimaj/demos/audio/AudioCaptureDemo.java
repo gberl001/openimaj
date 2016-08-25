@@ -34,6 +34,7 @@ package org.openimaj.demos.audio;
 
 import java.nio.ByteBuffer;
 import java.nio.ShortBuffer;
+import java.util.Arrays;
 
 import org.openimaj.audio.AudioFormat;
 import org.openimaj.audio.JavaSoundAudioGrabber;
@@ -80,6 +81,7 @@ public class AudioCaptureDemo {
 
 	/** The Fourier transform processor we're going to use */
 	private FourierTransform fftp = null;
+	private long lastTime = System.nanoTime();
 
 	/**
 	 *
@@ -123,8 +125,10 @@ public class AudioCaptureDemo {
 		try {
 			Thread.sleep(500);
 			SampleChunk s = null;
-			while ((s = g.nextSampleChunk()) != null)
+			while ((s = g.nextSampleChunk()) != null) {
 				this.updateDisplay(s);
+				System.err.println(Arrays.toString(s.getSamples()));
+			}
 		} catch (final InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -179,6 +183,8 @@ public class AudioCaptureDemo {
 		// System.out.println( "Sample chunk size: "+sampleChunkSize );
 		// System.out.println( "Number of samples: "+s.getNumberOfSamples() );
 		// System.out.println( "FFT size: "+f.length );
+//		System.out.println("Elapsed Time: " + (System.nanoTime() - lastTime));
+//		lastTime = System.nanoTime();
 		if (s.getNumberOfSamples() != this.sampleChunkSize) {
 			this.sampleChunkSize = s.getNumberOfSamples();
 			this.spectra = new FImage(800, this.sampleChunkSize / 2);
@@ -206,8 +212,8 @@ public class AudioCaptureDemo {
 			// Draw the frequency bands
 			for (final double freq : this.Hz) {
 				final int y = drawSpectra.getHeight() - (int) (freq / binSize);
-				drawSpectra.drawLine(0, y, this.spectra.getWidth(), y, RGBColour.GREEN);
-				drawSpectra.drawText("" + freq + "Hz", 4, y, HersheyFont.TIMES_BOLD, 10, RGBColour.GREEN);
+				drawSpectra.drawLine(0, y, this.spectra.getWidth(), y, RGBColour.BLACK);
+				drawSpectra.drawText("" + freq + "Hz", 4, y, HersheyFont.TIMES_BOLD, 10, RGBColour.BLACK);
 			}
 		}
 

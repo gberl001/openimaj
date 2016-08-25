@@ -56,7 +56,7 @@ import org.openimaj.video.xuggle.XuggleAudio;
 public class AudioPlayerDemo
 {
 	/** The file we're going to play */
-	public final static String AUDIO_FILE = "/org/openimaj/demos/audio/140bpm-Arp.mp3";
+	public final static String AUDIO_FILE = "/org/openimaj/demos/audio/chord.wav";
 	
 	/**
 	 * 	Default constructor

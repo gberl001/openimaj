@@ -225,6 +225,7 @@ public class JavaSoundAudioGrabber extends AudioGrabber {
 		try {
 			// Get the output line to write to using the given
 			// sample format we just created.
+
 			this.mLine = (TargetDataLine) AudioSystem.getLine(info);
 
 			// If no exception has been thrown we open the line.

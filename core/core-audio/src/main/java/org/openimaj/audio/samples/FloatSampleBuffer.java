@@ -32,15 +32,15 @@
  */
 package org.openimaj.audio.samples;
 
+import com.google.common.primitives.Doubles;
+import com.google.common.primitives.Floats;
 import gnu.trove.iterator.TFloatIterator;
 import gnu.trove.list.array.TFloatArrayList;
-
-import java.util.Iterator;
-
 import org.openimaj.audio.AudioFormat;
 import org.openimaj.audio.SampleChunk;
 import org.openimaj.audio.timecode.AudioTimecode;
-import org.openimaj.util.array.ArrayUtils;
+
+import java.util.Iterator;
 
 /**
  * An implementation of a sample buffer that maintains the floating point
@@ -82,7 +82,7 @@ public class FloatSampleBuffer implements SampleBuffer, Iterator<Float>
 	 *            The audio format
 	 */
 	public FloatSampleBuffer(final double[] samples, final AudioFormat af) {
-		this(ArrayUtils.convertToFloat(samples), af);
+		this(Floats.toArray(Doubles.asList(samples)), af);
 	}
 
 	/**
@@ -173,7 +173,8 @@ public class FloatSampleBuffer implements SampleBuffer, Iterator<Float>
 	 */
 	@Override
 	public double[] asDoubleArray() {
-		return ArrayUtils.convertToDouble(this.samples);
+		return Doubles.toArray(Floats.asList(this.samples));
+//		return ArrayUtils.convertToDouble(this.samples);
 	}
 
 	/**
